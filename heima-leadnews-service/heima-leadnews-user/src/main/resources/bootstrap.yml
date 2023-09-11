@@ -6,7 +6,14 @@ spring:
   cloud:
     nacos:
       discovery:
+        username: nacos
+        password: nacos
         server-addr: 192.168.200.130:8848
       config:
         server-addr: 192.168.200.130:8848
+        username: nacos
+        password: nacos
+        prefix: leadnews-user
         file-extension: yml
+
+# nacos 中如果未加namespace 则默认时public中的命名空间

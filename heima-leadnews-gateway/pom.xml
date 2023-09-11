@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>heima-leadnews-app-gateway</module>
+        <module>heima-leadnews-wemedia-gateway</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,6 +21,7 @@
     </properties>
 
     <dependencies>
+        <!-- gateway不能和web依赖一起-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>

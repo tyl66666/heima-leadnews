@@ -28,6 +28,7 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
         if(request.getURI().getPath().contains("/login")){
             //放行
             return chain.filter(exchange);
+
         }
 
 

@@ -31,10 +31,11 @@ public class ApUserServiceImpl extends ServiceImpl<ApUserMapper, ApUser> impleme
     @Override
     public ResponseResult login(LoginDto dto) {
         //1.正常登录 用户名和密码
-        if(StringUtils.isNotBlank(dto.getPhone()) && StringUtils.isNotBlank(dto.getPassword())){
+        //StringUtils.isNotBlank() 判断是否为空 不为空 true  空false
+        if(StringUtils.isNotBlank(dto.getPhone()) || StringUtils.isNotBlank(dto.getPassword())){
             //1.1 根据手机号查询用户信息
             ApUser dbUser = getOne(Wrappers.<ApUser>lambdaQuery().eq(ApUser::getPhone, dto.getPhone()));
-            if(dbUser == null){
+            if(dbUser==null){
                 return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST,"用户信息不存在");
             }
 
@@ -47,7 +48,7 @@ public class ApUserServiceImpl extends ServiceImpl<ApUserMapper, ApUser> impleme
             }
 
             //1.3 返回数据  jwt  user
-            String token = AppJwtUtil.getToken(dbUser.getId().longValue());
+            String token = AppJwtUtil.getToken(dbUser.getId(). longValue());
             Map<String,Object> map = new HashMap<>();
             map.put("token",token);
             dbUser.setSalt("");

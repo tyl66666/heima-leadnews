@@ -14,8 +14,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2
-@EnableKnife4j
+@EnableSwagger2  //开启swagger
+@EnableKnife4j   //开启Knife4j
 @Import(BeanValidatorPluginsConfiguration.class)
 public class Swagger2Configuration {
 

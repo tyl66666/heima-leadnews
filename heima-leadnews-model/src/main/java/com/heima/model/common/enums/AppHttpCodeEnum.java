@@ -2,6 +2,10 @@ package com.heima.model.common.enums;
 
 public enum AppHttpCodeEnum {
 
+    /**
+     * 利用枚举类 将错误列举
+     * */
+    // 静态实例对象
     // 成功段固定为200
     SUCCESS(200,"操作成功"),
     // 登录段1~50
@@ -25,11 +29,14 @@ public enum AppHttpCodeEnum {
     DATA_NOT_EXIST(1002,"数据不存在"),
     // 数据错误 3000~3500
     NO_OPERATOR_AUTH(3000,"无权限操作"),
-    NEED_ADMIND(3001,"需要管理员权限");
+    NEED_ADMIND(3001,"需要管理员权限"),
+    MATERIASL_REFERENCE_FAIL(3501,"素材失效");
+
 
     int code;
     String errorMessage;
 
+    // 这是一个构造方法
     AppHttpCodeEnum(int code, String errorMessage){
         this.code = code;
         this.errorMessage = errorMessage;
@@ -41,5 +48,13 @@ public enum AppHttpCodeEnum {
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "AppHttpCodeEnum{" +
+                "code=" + code +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
     }
 }

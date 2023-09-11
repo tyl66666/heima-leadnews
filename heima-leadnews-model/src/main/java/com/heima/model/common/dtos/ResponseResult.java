@@ -135,6 +135,7 @@ public class ResponseResult<T> implements Serializable {
 
 
     public static void main(String[] args) {
+
         //前置
         /*AppHttpCodeEnum success = AppHttpCodeEnum.SUCCESS;
         System.out.println(success.getCode());
@@ -148,9 +149,11 @@ public class ResponseResult<T> implements Serializable {
         System.out.println(JSON.toJSONString(result));*/
 
 
-        //新增，修改，删除  在项目中统一返回成功即可
-        /*ResponseResult result = ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
-        System.out.println(JSON.toJSONString(result));*/
+        //新增，修改，删除  在项目中统一返回成功即可  枚举类型如果不写tospring方法 则返回的是实例化对象的名字
+        ResponseResult result = ResponseResult.okResult(AppHttpCodeEnum.SUCCESS.toString());
+        AppHttpCodeEnum success = AppHttpCodeEnum.SUCCESS;
+        System.out.println(success);
+        System.out.println(JSON.toJSONString(result));
 
 
         //根据不用的业务返回不同的提示信息  比如：当前操作需要登录、参数错误
@@ -158,12 +161,12 @@ public class ResponseResult<T> implements Serializable {
         System.out.println(JSON.toJSONString(result));*/
 
         //查询分页信息
-        PageResponseResult responseResult = new PageResponseResult(1,5,50);
+        /*PageResponseResult responseResult = new PageResponseResult(1,5,50);
         List list = new ArrayList();
         list.add("itcast");
         list.add("itheima");
         responseResult.setData(list);
-        System.out.println(JSON.toJSONString(responseResult));
+        System.out.println(JSON.toJSONString(responseResult));*/
 
     }
 

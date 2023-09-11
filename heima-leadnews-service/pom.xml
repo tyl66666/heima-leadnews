@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>heima-leadnews-user</module>
+        <module>heima-leadnews-article</module>
+        <module>heima-leadnews-wemedia</module>
     </modules>
 
     <properties>
@@ -30,7 +32,7 @@
             <groupId>com.heima</groupId>
             <artifactId>heima-leadnews-common</artifactId>
         </dependency>
-        <!--TODO 以后改成 openfeign -->
+        <!--TODO 以后改成 Dubbo -->
         <dependency>
             <groupId>com.heima</groupId>
             <artifactId>heima-leadnews-feign-api</artifactId>

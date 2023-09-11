@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * <p>
- * APP用户信息表   数据库对应的
+ * APP用户信息表   数据库对应的 查询数据库返回的信息
  * </p>
  *
  * @author itheima

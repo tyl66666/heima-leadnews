@@ -16,6 +16,7 @@
         <module>heima-leadnews-service</module>
         <module>heima-leadnews-gateway</module>
         <module>heima-leadnews-test</module>
+        <module>heima-leadnews-basic</module>
     </modules>
 
     <!-- 继承Spring boot工程 -->
@@ -67,6 +68,7 @@
         <com.alibaba.cloud>2.2.5.RELEASE</com.alibaba.cloud>
         <xxl.job.version>2.2.0-SNAPSHOT</xxl.job.version>
     </properties>
+    <!--每个模块必须要的 -->
     <dependencies>
         <!--日志处理包-->
         <dependency>
@@ -81,6 +83,8 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <!--这里面是可能要的 但规定了版本号 -->
     <dependencyManagement>
 
         <dependencies>
@@ -106,6 +110,7 @@
                 <version>${project.version}</version>
             </dependency>
             <!-- Spring boot 特殊处理包 -->
+            <!--反射工具包 -->
             <dependency>
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
@@ -143,6 +148,7 @@
                 <version>${spring.boot.version}</version>
             </dependency>
             <!--Apache 工具包包-->
+            <!--文件操作工具类 -->
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -195,12 +201,12 @@
             </dependency><dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-cbor</artifactId>
-                <version>${fastjson.dataformat.version}</version>
+                <version>2.9.9</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-xml</artifactId>
-                <version>${fastjson.dataformat.version}</version>
+                <version>2.9.7</version>
             </dependency>
             <!-- spring colud -->
             <dependency>
@@ -218,7 +224,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- spring boot admin -->
+            <!-- spring boot admin  对 Spring Boot 服务进行监控  -->
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
@@ -237,13 +243,13 @@
                 <artifactId>curator-recipes</artifactId>
                 <version>${curator.version}</version>
             </dependency>
-            <!--匹配度工具包-->
+            <!--匹配度工具包   HanLP详解文本的关键字提取-人名识别-字体转换-分词-文本推荐 ???-->
             <dependency>
                 <groupId>com.hankcs</groupId>
                 <artifactId>hanlp</artifactId>
                 <version>${hanlp.version}</version>
             </dependency>
-            <!-- fastdfs客服端 -->
+            <!-- fastdfs客服端   文件的上传与下载-->
             <dependency>
                 <groupId>com.github.tobato</groupId>
                 <artifactId>fastdfs-client</artifactId>
