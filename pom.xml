@@ -8,6 +8,7 @@
     <artifactId>heima-leadnews</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+<!--    下面的子类-->
     <modules>
         <module>heima-leadnews-common</module>
         <module>heima-leadnews-utils</module>
@@ -82,6 +83,10 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-loadbalancer</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
     <!--这里面是可能要的 但规定了版本号 -->
@@ -154,6 +159,7 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons.io.version}</version>
             </dependency>
+            <!--处理空值问题 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
@@ -208,7 +214,7 @@
                 <artifactId>jackson-dataformat-xml</artifactId>
                 <version>2.9.7</version>
             </dependency>
-            <!-- spring colud -->
+            <!-- spring colud 里面有许多组件 只要添加了这个依赖 当你使用spring-cloud中的组件时 不需要加版本号-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -255,6 +261,7 @@
                 <artifactId>fastdfs-client</artifactId>
                 <version>${fastdfs.version}</version>
             </dependency>
+            <!--aliyun审核图片 -->
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-core</artifactId>

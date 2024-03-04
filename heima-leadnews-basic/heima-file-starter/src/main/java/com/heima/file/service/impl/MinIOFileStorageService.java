@@ -34,7 +34,7 @@ public class MinIOFileStorageService implements FileStorageService {
     private final static String separator = "/";
 
     /**
-     * @param dirPath
+     * @param dirPath  生成日期的文件架
      * @param filename  yyyy/mm/dd/file.jpg
      * @return
      */
@@ -59,6 +59,7 @@ public class MinIOFileStorageService implements FileStorageService {
      */
     @Override
     public String uploadImgFile(String prefix, String filename,InputStream inputStream) {
+        // 上传到minio中
         String filePath = builderFilePath(prefix, filename);
         try {
             PutObjectArgs putObjectArgs = PutObjectArgs.builder()
@@ -67,6 +68,8 @@ public class MinIOFileStorageService implements FileStorageService {
                     .bucket(minIOConfigProperties.getBucket()).stream(inputStream,inputStream.available(),-1)
                     .build();
             minioClient.putObject(putObjectArgs);
+
+            // 拼接url地址返回
             StringBuilder urlPath = new StringBuilder(minIOConfigProperties.getReadPath());
             urlPath.append(separator+minIOConfigProperties.getBucket());
             urlPath.append(separator);
@@ -79,11 +82,11 @@ public class MinIOFileStorageService implements FileStorageService {
     }
 
     /**
-     *  上传html文件
-     * @param prefix  文件前缀
+     *
      * @param filename   文件名
      * @param inputStream  文件流
-     * @return  文件全路径
+     * @return  文件全路径 上传html文件
+     *      * @param prefix  文件前缀
      */
     @Override
     public String uploadHtmlFile(String prefix, String filename,InputStream inputStream) {
@@ -92,7 +95,8 @@ public class MinIOFileStorageService implements FileStorageService {
             PutObjectArgs putObjectArgs = PutObjectArgs.builder()
                     .object(filePath)
                     .contentType("text/html")
-                    .bucket(minIOConfigProperties.getBucket()).stream(inputStream,inputStream.available(),-1)
+                    .bucket(minIOConfigProperties.getBucket())
+                    .stream(inputStream,inputStream.available(),-1)
                     .build();
             minioClient.putObject(putObjectArgs);
             StringBuilder urlPath = new StringBuilder(minIOConfigProperties.getReadPath());
@@ -110,7 +114,13 @@ public class MinIOFileStorageService implements FileStorageService {
     /**
      * 删除文件
      * @param pathUrl  文件全路径
-     */
+     *
+     *   /**
+     *          * String bucketName = "bucket";
+     *          * String fileName = "bucket后面跟的文件名";
+     *          * address+bucketName+fileName 就是访问路径，删除需要后两个参数。
+     *
+     *      */
     @Override
     public void delete(String pathUrl) {
         String key = pathUrl.replace(minIOConfigProperties.getEndpoint()+"/","");
@@ -133,6 +143,7 @@ public class MinIOFileStorageService implements FileStorageService {
      * @param pathUrl  文件全路径
      * @return  文件流
      *
+     *  和删除需要的东西一样
      */
     @Override
     public byte[] downLoadFile(String pathUrl)  {

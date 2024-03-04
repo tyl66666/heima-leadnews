@@ -10,4 +10,16 @@
         </foreach>
     </insert>
 
+
+<!--    <resultMap id="newsmaterial" type="com.heima.model.wemedia.pojos.WmNewsMaterial">-->
+<!--        <id property="id" column="id"></id>-->
+<!--        <result property="materialId" column="material_id"></result>-->
+<!--        <result property="newsId" column="news_id"></result>-->
+<!--        <result property="type" column="type"></result>-->
+<!--        <result property="ord" column="ord"></result>-->
+<!--    </resultMap>-->
+    <select id="findNewsByMaterial"  resultType="int">
+        SELECT count(*) FROM `wm_news_material` where material_id=#{materialId};
+    </select>
+
 </mapper>

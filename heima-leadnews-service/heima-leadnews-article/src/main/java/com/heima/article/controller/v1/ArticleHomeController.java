@@ -23,16 +23,19 @@ public class ArticleHomeController {
     @Autowired
     private ApArticleService apArticleService;
 
+    // 加载首页
     @PostMapping("/load")
     public ResponseResult load(@RequestBody ArticleHomeDto dto) {
-        return apArticleService.load(ArticleConstants.LOADTYPE_LOAD_MORE,dto);
+        return apArticleService.load2(ArticleConstants.LOADTYPE_LOAD_MORE,dto,true);
     }
 
+    //向下滑 加载更多
     @PostMapping("/loadmore")
     public ResponseResult loadMore(@RequestBody ArticleHomeDto dto) {
         return apArticleService.load(ArticleConstants.LOADTYPE_LOAD_MORE,dto);
     }
 
+    //向上滑 加载最新
     @PostMapping("/loadnew")
     public ResponseResult loadNew(@RequestBody ArticleHomeDto dto) {
         return apArticleService.load(ArticleConstants.LOADTYPE_LOAD_NEW,dto);

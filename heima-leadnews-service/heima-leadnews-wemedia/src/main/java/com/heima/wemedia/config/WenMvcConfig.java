@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author tyl
  * @date 2023/9/9
+ * 添加拦截器 使其生效
  */
 @Configuration
 public class WenMvcConfig  implements WebMvcConfigurer {

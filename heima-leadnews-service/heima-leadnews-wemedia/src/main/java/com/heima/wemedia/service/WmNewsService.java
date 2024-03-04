@@ -12,4 +12,10 @@ public interface WmNewsService extends IService<WmNews> {
 
       ResponseResult submitNews(WmNewsDto dto);
 
+      public ResponseResult downOrUp( WmNewsDto dto);
+
+      public ResponseResult delNews(String newId);
+
+      public ResponseResult editOne(String newId);
+
 }

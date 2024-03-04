@@ -15,7 +15,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 文章信息表，存储已发布的文章
+ * 文章信息表，存储已发布的文章  信息是 文章的所属标签，点赞，喜欢等信息
  * </p>
  *
  * @author itheima
@@ -24,7 +24,7 @@ import java.util.Date;
 @Data
 @TableName("ap_article")
 public class ApArticle implements Serializable {
-
+    // type = IdType.ID_WORKER 指定主键的生成策略为ID_WORKER，即使用雪花算法生成唯一的主键值
     @TableId(value = "id",type = IdType.ID_WORKER)
     private Long id;
 

@@ -110,6 +110,7 @@ public class SensitiveWordUtil {
         return wordMap;
     }
 
+    // 返回值 是
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();
         list.add("法轮");
@@ -118,6 +119,9 @@ public class SensitiveWordUtil {
         initMap(list);
         String content="我是一个好人，并不会卖冰毒，也不操练法轮功,我真的不卖冰毒";
         Map<String, Integer> map = matchWords(content);
+        map.forEach((v,k)->{
+            System.out.println(v+"  "+k);
+        });
         System.out.println(map);
     }
 }

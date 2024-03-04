@@ -19,6 +19,10 @@ public class WmchannelController {
     private WmChannelService wmChannelService;
 
 
+    /**
+     * 查询所有列表
+     * @return
+     */
     @GetMapping("/channels")
     public ResponseResult findAll(){
         return wmChannelService.findAll();

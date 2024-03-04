@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * APP已发布文章配置表
+ * APP已发布文章配置表 是否下架 转发等信息
  * </p>
  *
  * @author itheima

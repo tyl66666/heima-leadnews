@@ -1,6 +1,7 @@
 package com.heima.model.article.pojos;
 
 /**
+ * 文章的内容表
  * @author tyl
  * @date 2023/9/4
  */

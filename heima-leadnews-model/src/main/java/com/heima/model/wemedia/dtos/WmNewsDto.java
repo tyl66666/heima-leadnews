@@ -26,7 +26,7 @@ public class WmNewsDto {
      */
     private Date publishTime;
      /**
-     * 文章内容
+     * 文章内容 这个里面也有图片
      */
     private String content;
      /**
@@ -46,4 +46,9 @@ public class WmNewsDto {
      * 封面图片列表 多张图以逗号隔开
      */
     private List<String> images;
+
+    /**
+     * 上下架  1为上架  0为下架
+     */
+    private Short enable;
 }

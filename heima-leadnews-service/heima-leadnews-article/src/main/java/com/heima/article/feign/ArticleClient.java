@@ -11,7 +11,6 @@ import com.heima.model.common.dtos.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 
 @RestController
 public class ArticleClient implements IArticleClient {
@@ -24,5 +23,4 @@ public class ArticleClient implements IArticleClient {
     public ResponseResult saveArticle(@RequestBody ArticleDto dto) {
         return apArticleService.saveArticle(dto);
     }
-
 }

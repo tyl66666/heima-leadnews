@@ -22,7 +22,7 @@
 
         <van-row type="flex" align="center" class="article-header">
             <van-col span="3">
-                <van-image round class="article-avatar" src="https://p3.pstatp.com/thumb/1480/7186611868"></van-image>
+                <van-image round class="article-avatar" src="https://img11.360buyimg.com/n1/jfs/t1/163189/5/15996/27507/6065ba7cEe6598622/1de92adcd061b50d.jpg"></van-image>
             </van-col>
             <van-col span="16">
                 <div v-html="authorName"></div>

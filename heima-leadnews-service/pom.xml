@@ -11,10 +11,14 @@
 
     <artifactId>heima-leadnews-service</artifactId>
     <packaging>pom</packaging>
+<!--  子类  易忘点-->
     <modules>
         <module>heima-leadnews-user</module>
         <module>heima-leadnews-article</module>
         <module>heima-leadnews-wemedia</module>
+        <module>heima-leadnews-schedule</module>
+        <module>heima-leadnews-search</module>
+        <module>heima-leadnews-behavior</module>
     </modules>
 
     <properties>
