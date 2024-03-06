@@ -52,7 +52,7 @@ public class TaskinfoLogs implements Serializable {
     /**
      * 版本号,用乐观锁
      */
-    @Version
+    @Version   //表明版本字段
     private Integer version;
 
     /**

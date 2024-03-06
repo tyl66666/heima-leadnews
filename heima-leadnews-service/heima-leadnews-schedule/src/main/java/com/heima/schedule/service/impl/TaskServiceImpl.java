@@ -92,6 +92,7 @@ public class TaskServiceImpl implements TaskService {
             BeanUtils.copyProperties(taskinfo,taskinfoLogs);
             // 设置乐观锁
             taskinfoLogs.setVersion(1);
+            // 设置状态 0 1 2
             taskinfoLogs.setStatus(ScheduleConstants.SCHEDULED);
             taskinfoLogsMapper.insert(taskinfoLogs);
             flag=true;
