@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-public class ArticleClient implements IArticleClient {
+public class ArticleClient implements IArticleClient{
 
     @Autowired
     private ApArticleService apArticleService;
 
+    /**
+     * 保存app端文章
+     * @param dto
+     * @return
+     */
     @Override
-    @PostMapping("/api/v1/article/save")
-    public ResponseResult saveArticle(@RequestBody ArticleDto dto) {
-        return apArticleService.saveArticle(dto);
+    public ResponseResult saveArticle(@RequestBody  ArticleDto dto) {
+        return  apArticleService.saveArticle(dto);
     }
 }

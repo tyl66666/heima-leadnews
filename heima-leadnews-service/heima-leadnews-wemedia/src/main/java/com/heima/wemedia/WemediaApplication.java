@@ -16,6 +16,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.heima.wemedia.mapper")
+/**
+ * 通过设置该属性，可以告诉 Spring 在哪些包下查找用 @FeignClient 注解标记的接口。
+ */
 @EnableFeignClients(basePackages = "com.heima.apis")
 @EnableAsync
 @EnableScheduling

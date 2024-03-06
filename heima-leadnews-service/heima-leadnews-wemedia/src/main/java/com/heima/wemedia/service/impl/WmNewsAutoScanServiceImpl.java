@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,16 +66,16 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
             //自管理的敏感词过滤
             boolean isSensitive = handleSensitiveScan((String) textAndImages.get("content"), wmNews);
             if (!isSensitive) return;
-
-            //2.审核文本内容  阿里云接口
+//
+//            2.审核文本内容  阿里云接口
 //            boolean isTextScan = handleTextScan((String) textAndImages.get("content"), wmNews);
 //            if (!isTextScan) return;
 
-            //3.审核图片  阿里云接口
-//            boolean isImageScan = handleImageScan((List<String>) textAndImages.get("images"), wmNews);
-//            if (!isImageScan) return;
+            //3.审核图片
+            boolean isImageScan = handleImageScan((List<String>) textAndImages.get("images"), wmNews);
+            if (!isImageScan) return;
 
-            //4.审核成功，保存app端的相关的文章数据
+            //4.审核成功，保存app端的相关的文章数据  返回值就是app文章id
             ResponseResult responseResult = saveAppArticle(wmNews);
             if (!responseResult.getCode().equals(200)) {
                 throw new RuntimeException("WmNewsAutoScanServiceImpl-文章审核，保存app端相关文章数据失败");
@@ -109,14 +110,16 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
         //查看文章中是否包含敏感词
         Map<String, Integer> map = SensitiveWordUtil.matchWords(content);
         if (map.size() > 0) {
+            // 修改文章状态
             updateWmNews(wmNews, (short) 2, "当前文章中存在违规内容" + map);
             flag = false;
         }
 
         return flag;
     }
-    // TODO ????
-    @Autowired(required = false)
+
+
+    @Autowired
     private IArticleClient articleClient;
 
     @Autowired
@@ -202,13 +205,14 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
                 ByteArrayInputStream in = new ByteArrayInputStream(bytes);
                 BufferedImage bufferedImage = ImageIO.read(in);
 
-                //图片识别
-//                String result = tess4jClient.doOCR(bufferedImage);
-                //过滤文字
-//                boolean isSensitive = handleSensitiveScan(result, wmNews);
-//                if(!isSensitive){
-//                    return isSensitive;
-//                }
+//                图片识别
+                String result = tess4jClient.doOCR(bufferedImage);
+//                过滤文字
+                boolean isSensitive = handleSensitiveScan(result, wmNews);
+                if(!isSensitive){
+                    flag=false;
+                    return isSensitive;
+                }
                 imageList.add(bytes);
 
             }
@@ -219,27 +223,27 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
 
 
-        //审核图片
-        try {
-            Map map = greenImageScan.imageScan(imageList);
-            if (map != null) {
-                //审核失败
-                if (map.get("suggestion").equals("block")) {
-                    flag = false;
-                    updateWmNews(wmNews, (short) 2, "当前文章中存在违规内容");
-                }
-
-                //不确定信息  需要人工审核
-                if (map.get("suggestion").equals("review")) {
-                    flag = false;
-                    updateWmNews(wmNews, (short) 3, "当前文章中存在不确定内容");
-                }
-            }
-
-        } catch (Exception e) {
-            flag = false;
-            e.printStackTrace();
-        }
+//        //审核图片
+//        try {
+//            Map map = greenImageScan.imageScan(imageList);
+//            if (map != null) {
+//                //审核失败
+//                if (map.get("suggestion").equals("block")) {
+//                    flag = false;
+//                    updateWmNews(wmNews, (short) 2, "当前文章中存在违规内容");
+//                }
+//
+//                //不确定信息  需要人工审核
+//                if (map.get("suggestion").equals("review")) {
+//                    flag = false;
+//                    updateWmNews(wmNews, (short) 3, "当前文章中存在不确定内容");
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            flag = false;
+//            e.printStackTrace();
+//        }
         return flag;
     }
 

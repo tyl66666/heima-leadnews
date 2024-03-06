@@ -31,8 +31,6 @@ import java.util.Map;
 @Service
 public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
     @Autowired
-    private ApArticleContentMapper apArticleContentMapper;
-    @Autowired
     private Configuration configuration;
     @Autowired
     private FileStorageService fileStorageService;
@@ -50,7 +48,7 @@ public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
             Template template = null;
             try {
                 template = configuration.getTemplate("article.ftl");
-                //合成 TODO ??????
+                //合成
                 //数据模型 因为存的是json数据 需要转
                 Map<String,Object> contentDataModel=new HashMap<>();
                 contentDataModel.put("content",JSONArray.parseArray(content));
@@ -59,7 +57,7 @@ public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
                 e.printStackTrace();
             }
 
-            // 把html上传得到minio中 TODO ?????
+            // 把html上传得到minio中
             InputStream in = new ByteArrayInputStream((out.toString().getBytes(StandardCharsets.UTF_8)));
             String path = fileStorageService.uploadHtmlFile("", apArticle.getId() + ".html", in);
 

@@ -11,5 +11,5 @@ spring:
         server-addr: 192.168.200.130:8848
         file-extension: yml
 tess4j:
-  data-path: D:\黑马点评资料\day04-自媒体文章审核\资料\tessdata
+  data-path: D:\workspace\tessdata
   language: chi_sim

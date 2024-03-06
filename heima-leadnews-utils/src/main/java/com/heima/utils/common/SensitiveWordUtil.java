@@ -3,13 +3,14 @@ package com.heima.utils.common;
 
 import java.util.*;
 
+// DFA算法 搞定自管理敏感词
 public class SensitiveWordUtil {
 
     public static Map<String, Object> dictionaryMap = new HashMap<>();
 
 
     /**
-     * 生成关键词字典库
+     * 生成敏感词关键词字典库
      * @param words
      * @return
      */
