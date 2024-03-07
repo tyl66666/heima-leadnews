@@ -22,9 +22,9 @@ import java.util.Map;
 
 @Setter
 @Getter
-@Configuration
+//@Configuration
 @EnableKafkaStreams
-@ConfigurationProperties(prefix="kafka")
+//@ConfigurationProperties(prefix="kafka")
 public class KafkaStreamConfig {
     private static final int MAX_MESSAGE_SIZE = 16* 1024 * 1024;
     private String hosts;
