@@ -58,9 +58,10 @@ public class TaskServiceImpl implements TaskService {
         calendar.add(Calendar.MINUTE,5);
         long nextScheduleTime = calendar.getTimeInMillis();
 
-        //2.1 如果任务的执行时间小于等于当前时间 存入list
+        //2.1 如果任务的执行时间小于等于当前时间 存入list  发布时间小于现在时间
         if(task.getExecuteTime() <= System.currentTimeMillis()){
             cacheService.lLeftPush(ScheduleConstants.TOPIC+key, JSON.toJSONString(task));
+            // 发布时间小于现在时间+五分钟
         }else if(task.getExecuteTime()<=nextScheduleTime ){
             //2.2 如果任务的执行时间大于当前时间 && 小于等于与预设时间（未来五分钟）存入到zset中
             cacheService.zAdd(ScheduleConstants.FUTURE+key,JSON.toJSONString(task),task.getExecuteTime());
@@ -111,7 +112,7 @@ public class TaskServiceImpl implements TaskService {
     public boolean cancelTask(long taskId) {
 
         boolean flag=false;
-        //删除任务 ，跟新任务日志
+        //删除任务 ，跟新任务日志 之所以要返回task 是因为要删除redis
         Task  task =updateDb(taskId,ScheduleConstants.CANCELLED);
 
         // 删除redis的数据
@@ -136,7 +137,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * 删除任务 ，跟新任务日志
+     * 删除任务中的跟新任务日志
      * @param taskId
      * @param status
      * @return
@@ -149,6 +150,7 @@ public class TaskServiceImpl implements TaskService {
 
             //更新任务日志
             TaskinfoLogs taskinfoLogs = taskinfoLogsMapper.selectById(taskId);
+            // 将任务日志状态改为2
             taskinfoLogs.setStatus(status);
             taskinfoLogsMapper.updateById(taskinfoLogs);
 
@@ -161,13 +163,14 @@ public class TaskServiceImpl implements TaskService {
         return task;
     }
 
+    //取出任务
     @Override
     public Task poll(int type, int priority) {
         Task task=null;
 
         try {
             String key =type+"_"+priority;
-            //从redis中拉取数据  pop
+            //从redis中拉取List数据JSON数据  pop
             String task_json = cacheService.lRightPop(ScheduleConstants.TOPIC + key);
             if(StringUtils.isNoneBlank(task_json)){
                 task=JSON.parseObject(task_json,Task.class);
@@ -180,6 +183,7 @@ public class TaskServiceImpl implements TaskService {
       return task;
     }
 
+    // 每分钟执行一次
     @Scheduled(cron = "0 */1 * * * ?")
     public void refresh(){
         log.info("开启定时任务 将 zset 变成 list");
@@ -191,7 +195,7 @@ public class TaskServiceImpl implements TaskService {
 
             //获取所有未来数据的集合key
             Set<String> futureKeys = cacheService.scan(ScheduleConstants.FUTURE + "*");
-            for (String futureKey : futureKeys) {//future_100_50
+            for (String futureKey : futureKeys) {
 
                 //获取当前数据的key  topic
                 String topicKey = ScheduleConstants.TOPIC + futureKey.split(ScheduleConstants.FUTURE)[1];

@@ -22,7 +22,7 @@ public class Task implements Serializable {
     private Integer priority;
 
     /**
-     * 执行id
+     * 发布时间
      */
     private long executeTime;
 

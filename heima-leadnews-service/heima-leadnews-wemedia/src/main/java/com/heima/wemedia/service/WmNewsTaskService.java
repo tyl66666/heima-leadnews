@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface WmNewsTaskService {
     /**
-     * 添加任务到延迟队列中
+     * 添加任务到延迟队列中 发布之后就要添加到数据库中
      * @param id 文章id
      * @param publishTime
      */
