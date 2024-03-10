@@ -38,18 +38,19 @@ public class ArticleSearchServiceImpl implements ArticleSearchService {
     private ApUserSearchService apUserSearchService;
     /**
      * 文章分页检索  高亮有点小问题
-     * @param dto
+     * @param dto  TODO将方法变成使用 ElasticsearchTemplate
      * @return
      */
     @SneakyThrows
     @Override
     public ResponseResult search(UserSearchDto dto) {
        //1 检查参数
-        if(dto==null || !StringUtils.isNoneBlank(dto.getSearchWords())){
+        if(dto==null || StringUtils.isBlank(dto.getSearchWords())){
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
         ApUser user = AppThreadLocalUtil.getUser();
-        //异步调用 保存搜索记录 TODO dto.getFromIndex()==0有点不懂
+
+        //异步调用 保存搜索记录
         if(user!=null && dto.getFromIndex()==0){
             apUserSearchService.insert(dto.getSearchWords(),user.getId());
         }
@@ -62,7 +63,7 @@ public class ArticleSearchServiceImpl implements ArticleSearchService {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 
         //关键子的分词之后查询
-        QueryStringQueryBuilder queryStringQueryBuilder = QueryBuilders.queryStringQuery(dto.getSearchWords()).field("tille").field("content").defaultOperator(Operator.OR);
+        QueryStringQueryBuilder queryStringQueryBuilder = QueryBuilders.queryStringQuery(dto.getSearchWords()).field("title").field("content").defaultOperator(Operator.OR);
         boolQueryBuilder.must(queryStringQueryBuilder);
 
         //查询小于mindate的数据

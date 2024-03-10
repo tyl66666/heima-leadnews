@@ -23,15 +23,16 @@ public class AppTokenInterceptor  implements HandlerInterceptor {
         return true;
     }
 
-    //这个假如抛异常了是不会执行的
-
-//    @Override
-//    public void a(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-//        AppThreadLocalUtil.clear();
-//    }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         AppThreadLocalUtil.clear();
     }
+
+
+    //这个假如抛异常了是不会执行的
+//    @Override
+//    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+//        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+//    }
 }

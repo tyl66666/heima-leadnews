@@ -58,7 +58,7 @@ public class ApUserSearchServiceImpl implements ApUserSearchService {
             mongoTemplate.save(apUserSearch);
         }else {
             ApUserSearch lastUserSearch = apUserSearches.get(apUserSearches.size() - 1);
-            mongoTemplate.findAndReplace(Query.query(Criteria.where("id").is(lastUserSearch.getUserId())),apUserSearch);
+            mongoTemplate.findAndReplace(Query.query(Criteria.where("id").is(lastUserSearch.getId())),apUserSearch);
         }
     }
 
@@ -76,20 +76,20 @@ public class ApUserSearchServiceImpl implements ApUserSearchService {
         }
 
         // 根据用户查询数据 按照时间倒序
-        List<ApUserSearch> apUserSearches = mongoTemplate.find(Query.query(Criteria.where("userId").is(user.getId())).with(Sort.by(Sort.Direction.DESC,"createTime")),ApUserSearch.class);
+        List<ApUserSearch> apUserSearches = mongoTemplate.find(Query.query(Criteria.where("userId").is(user.getId())).with(Sort.by(Sort.Direction.DESC,"createdTime")),ApUserSearch.class);
         return ResponseResult.okResult(apUserSearches);
     }
 
     /**
      * 删除历史记录
      *
-     * @param dto
+     * @param historySearchDto
      * @return
      */
     @Override
-    public ResponseResult delUserSearch(HistorySearchDto dto) {
+    public ResponseResult delUserSearch(HistorySearchDto historySearchDto) {
         //1.检查参数
-        if(dto.getId() == null){
+        if(historySearchDto.getId() == null){
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 
@@ -100,7 +100,7 @@ public class ApUserSearchServiceImpl implements ApUserSearchService {
         }
 
         //3.删除
-        mongoTemplate.remove(Query.query(Criteria.where("userId").is(user.getId()).and("id").is(dto.getId())),ApUserSearch.class);
+        mongoTemplate.remove(Query.query(Criteria.where("userId").is(user.getId()).and("id").is(historySearchDto.getId())),ApUserSearch.class);
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
     }
 }

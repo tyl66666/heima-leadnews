@@ -28,7 +28,7 @@ public class MongoTest {
     @Test
     public void saveTest(){
         ApAssociateWords apAssociateWords = new ApAssociateWords();
-        apAssociateWords.setAssociateWords("黑马头条");
+        apAssociateWords.setAssociateWords("大赢家");
         apAssociateWords.setCreatedTime(new Date());
         mongoTemplate.save(apAssociateWords);
     }
